@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/main.css">
+    <title>Register</title>
+    <link rel="icon" type="image/x-icon" href="static/icons8-gym-62.png">
+</head>
+<body>
+    <header>
+        <div id="headDiv">
+            <div>
+                <div><img src="static/icons8-gym-62.png" alt="gym-icon" width="80"></div>
+                <div id="name"><b>My Gym</b></div>
+            </div>
+            <div>
+                <nav>
+                    <ul>
+                        <li class="bulletList"><a href="{{ url_for('get_home_information_data') }}">Home</a></li>
+                        <li class="bulletList"><a href="{{ url_for('get_services_information') }}">Services</a></li>
+                        <a href="{{url_for('user_login')}}"><button class="bulletButton">Log In</button></a>
+                        <a href="{{url_for('user_register')}}"><button class="bulletButton">Register</button></a>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header> 
+    <section class="submit_form">
+        <form action="{{ url_for('new_request') }}" method="post">
+            <label for="fname">First Name:</label><br>
+            <input type="text" name="fname" id="fname" placeholder="First Name" required><br>
+            <label for="lname">Last Name:</label><br>
+            <input type="text" name="lname" id="lname" placeholder="Last Name" required><br>
+            <label for="country">Country:</label><br>
+            <input id="countries" name="country" list="country" placeholder="Select country" onchange="getCities()" required>
+            <datalist id="country"></datalist><br>
+            <label for="city">City:</label><br>
+            <input id="cities" name="city" list="city" placeholder="Select city" required>
+            <datalist id="city"></datalist><br>
+            <label for="address">Address:</label><br>
+            <input type="text" name="address" id="address" placeholder="Address" required><br>
+            <label for="email">Email:</label><br>
+            <input type="email" name="email" id="email" placeholder="Email" required><br>
+            <label for="username">Username:</label><br>
+            <input type="text" name="username" id="username" placeholder="Username" required><br>
+            <label for="password">Password (5 to 14 characters):</label><br>
+            <input type="password" name="password" id="password" minlength="5" maxlength="14" placeholder="Password" required><br><br>
+            <input class="bulletButton" type="submit" value="Register">
+        </form>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}"><p id='warning'>{{ message }}</p></div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <p>Already have an account? <a href="{{url_for('user_login')}}">Log in</a></p>
+    </section>
+    <footer>
+        <ul>
+            <li><img src="static/Email icon by Icons8.png" alt="Email icon by Icons8" width="40"></li>
+            <li><a href="mailto:mygym@example.com">Write us an email</a></li>
+        </ul>
+        <ul>
+            <li><img src="static/Phone icon by Icons8.png" alt="Phone icon by Icons8" width="40"></li>
+            <li><a href="tel:+21 0414 2000">Give us a call</a></li>
+        </ul>
+        <p><small>&copy; All rights reserved.</small></p>
+    </footer>
+    <script src="static/countries_cities.js"></script>
+</body>
+</html>

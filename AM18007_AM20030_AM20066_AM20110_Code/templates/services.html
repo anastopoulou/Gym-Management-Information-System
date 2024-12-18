@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/main.css">
+    <title>Services</title>
+    <link rel="icon" type="image/x-icon" href="static/icons8-gym-62.png">
+    <style>
+        h1 { text-align: center; }
+        section section { border-style: double; }
+    </style>
+</head>
+<body>
+    <header>
+        <div id="headDiv">
+            <div>
+                <div><img src="static/icons8-gym-62.png" alt="gym-icon" width="80"></div>
+                <div id="name"><b>My Gym</b></div>
+            </div>
+            <div>
+                <nav>
+                    <ul>
+                        <li class="bulletList"><a href="{{ url_for('get_home_information_data') }}">Home</a></li>
+                        <li class="bulletList"><a href="{{ url_for('get_services_information') }}">Services</a></li>
+                        <a href="{{url_for('user_login')}}"><button class="bulletButton">Log In</button></a>
+                        <a href="{{url_for('user_register')}}"><button class="bulletButton">Register</button></a>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>  
+    <section>
+       <h1>Our programs</h1>
+        <table>
+            <tr>
+                <td>
+                    <img src="static/two-men-dressing-room-gym, Image by gpointstudio on Freepik.jpg" alt="two-men-dressing-room-gym, Image by gpointstudio on Freepik" style="width: 500px;">
+                </td>
+                <td class="colored">
+                    {% if daily_plan %}
+                        {% for program_entry in daily_plan %}
+                            <p style="text-align: left;"><b>{{ program_entry['name'] }}</b>: {{ program_entry['description'] }}</p>
+                        {% endfor %}
+                    {% else %}
+                        <p>No daily program data available.</p>
+                    {% endif %}
+                </td>
+            </tr>
+        </table> 
+    </section> 
+    <section>
+        <h1>FAQ</h1>
+        <section>
+            <p><b>Q:</b>Can I try a class before becoming a member?</p>
+            <p><b>A:</b>Yes, we offer a complimentary trial class for new members to experience our facilities and classes.</p>
+        </section>
+        <section>
+            <p><b>Q:</b>Are personal training sessions included in the membership fee?</p>
+            <p><b>A:</b>Personal training sessions are available at an additional cost. However, members can enjoy discounted rates on personal training packages.</p>
+        </section>
+    </section>
+    <footer>
+        <ul>
+            <li><img src="static/Email icon by Icons8.png" alt="Email icon by Icons8" width="40"></li>
+            <li><a href="mailto:mygym@example.com">Write us an email</a></li>
+        </ul>
+        <ul>
+            <li><img src="static/Phone icon by Icons8.png" alt="Phone icon by Icons8" width="40"></li>
+            <li><a href="tel:+21 0414 2000">Give us a call</a></li>
+        </ul>
+        <p><small>&copy; All rights reserved.</small></p>
+    </footer>
+</body>
+</html>

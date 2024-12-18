@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/main.css">
+    <title>Log in</title>
+    <link rel="icon" type="image/x-icon" href="static/icons8-gym-62.png">
+</head>
+<body>
+    <header>
+        <div id="headDiv">
+            <div>
+                <div><img src="static/icons8-gym-62.png" alt="gym-icon" width="80"></div>
+                <div id="name"><b>My Gym</b></div>
+            </div>
+            <div>
+                <nav>
+                    <ul>
+                        <li class="bulletList"><a href="{{ url_for('get_home_information_data') }}">Home</a></li>
+                        <li class="bulletList"><a href="{{ url_for('get_services_information') }}">Services</a></li>
+                        <a href="{{url_for('user_login')}}"><button class="bulletButton">Log In</button></a>
+                        <a href="{{url_for('user_register')}}"><button class="bulletButton">Register</button></a>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>  
+    <section class="submit_form">
+        <form action="{{ url_for('login') }}" method="post">
+            <label for="username">Username:</label><br>
+            <input type="text" name="username" id="username" placeholder="Username" required><br>
+            <label for="password">Password:</label><br>
+            <input type="password" name="password" id="password" placeholder="Password" required><br><br>
+            <input class="bulletButton" type="submit" value="Log in">
+        </form>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}"><p id='warning'>{{ message }}</p></div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% if show %}
+            <a href="{{url_for('get_user_information_data')}}"><button class="bulletButton">Go to users page</button></a>
+            <a href="{{url_for('main_admin')}}"><button class="bulletButton">Go to admins page</button></a>
+        {%endif%}
+        <p>New to our gym? <a href="{{url_for('user_register')}}">Create an account</a></p>
+    </section>
+    <footer>
+        <ul>
+            <li><img src="static/Email icon by Icons8.png" alt="Email icon by Icons8" width="40"></li>
+            <li><a href="mailto:mygym@example.com">Write us an email</a></li>
+        </ul>
+        <ul>
+            <li><img src="static/Phone icon by Icons8.png" alt="Phone icon by Icons8" width="40"></li>
+            <li><a href="tel:+21 0414 2000">Give us a call</a></li>
+        </ul>
+        <p><small>&copy; All rights reserved.</small></p>
+    </footer>
+</body>
+</html>

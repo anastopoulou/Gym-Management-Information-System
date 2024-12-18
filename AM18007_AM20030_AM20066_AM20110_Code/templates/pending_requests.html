@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Requests</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css" integrity="sha512-1nbfAtRe/JdtqfvT3K/Z9LNw+GtDZexO2niNf2w8zRSe1f91x0f13MmA/Z3IeX3DGaLq/RR1mrhxEe+BLMpLXg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha512-uO3Ed7hS2x4Rj4WvMId7l2xNiqLzn5NvFazm2fcP3L9FuqDo5IHgy5jz+KBwxTOVDFq8EdB8waO7PR4FJdT2uA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-DwRcIQV4Z3sKgRxryXO0Dv00Pv5x2l3tm/G2V6W8TnR9B/YL3AqXrDmiqrE2cFZJ+q1eXjcv0qAgkxIM3vjzSA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js" integrity="sha512-vPpv17h5n8le7bCyYKeNl3L/j87W9pZiXvNv3vF3EJzHANHSKknwMzbnDLBDuI2QHJHIXuD99qqWpJLnp5dn8A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        header {
+			width: 100%;
+			height: 15vh;
+			background-color: #767f9e98;
+			color: #000000;
+			padding: 20px;
+			text-align: center;
+			background-image: url('static/icons8-gym-62.png');
+			background-size: 90px;
+			background-position: left 20px center;
+			background-repeat: no-repeat;
+		}
+
+		nav {
+			background-color: #767f9e98;
+			padding: 10px;
+			text-align: center;
+		}
+
+		nav a {
+			color: #000000;
+			text-decoration: none;
+			margin: 0 15px;
+			padding: 10px 15px;
+			border-radius: 5px;
+			background-color: #767f9e98;
+			transition: background-color 0.3s;
+		}
+
+        nav a:hover {
+            background-color: #767f9e;
+        }
+
+        section {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #e0e0e0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        h2 {
+            color: #4a4a4a;
+        }
+
+        .latest-info h3 {
+            color: #dcdcdc;
+        }
+
+        a {
+            text-decoration: none;
+            font-size: 16px;
+            color:#000000;
+        }
+
+        footer a:hover{
+            color: rgb(78, 78, 232);
+        }
+
+        footer{
+            margin-top: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            background-color: #767f9e98;
+        }
+        footer ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 30px;
+            display: flex; 
+            list-style: none; 
+        }
+
+        footer li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Gym User Requests</h1>
+    </header>
+    <nav>
+		<a href="{{ url_for('main_admin') }}">Admin Panel</a>
+        <a href="{{ url_for('pending_requests') }}">Pending Requests</a>
+		<a href="{{ url_for('get_home_information_data') }}">Log out</a>
+    </nav>
+    <section id="pending_requests">
+        <h2>Pending Requests</h2>
+		{% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}"><p id='warning'>{{ message }}</p></div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+		{% for request in requests %}
+            <div class="request">
+                <h3>Request ID: {{ request.Request_requestid }}</h3>
+                <p>First Name: {{ request.Request_first_name }}</p>
+                <p>Last Name: {{ request.Request_last_name }}</p>
+                <p>Country: {{ request.Request_country }}</p>
+                <p>Town: {{ request.Request_town }}</p>
+                <p>Address: {{ request.Request_address }}</p>
+                <p>Email: {{ request.Request_email }}</p>
+				<div class="button-container">
+					<form action="{{ url_for('approve_request', Request_requestid=request['Request_requestid']) }}" method="post" style="display: inline;">
+						<input type="hidden" name="reservation_id" value="{{ request['Request_requestid'] }}">
+						<button onclick="approveRequest('{{ request.Request_requestid }}')">Approve</button>
+					</form>
+					<form action="{{ url_for('reject_request', Request_requestid=request['Request_requestid']) }}" method="post" style="display: inline;">
+						<input type="hidden" name="reservation_id" value="{{ request['Request_requestid'] }}">
+						<button onclick="rejectRequest('{{ request.Request_requestid }}')">Reject</button>
+					</form>
+				</div>
+            </div>
+        {% endfor %}
+        <div style="margin-bottom: 50px;"></div>
+    </section>
+    <footer>
+        <ul>
+            <li><img src="static/Email icon by Icons8.png" alt="Email icon by Icons8" width="40"></li>
+            <li><a href="mailto:mygym@example.com">Our Email</a></li>
+        </ul>
+        <ul>
+            <li><img src="static/Phone icon by Icons8.png" alt="Phone icon by Icons8" width="40"></li>
+            <li><a href="tel:+21 0414 2000">Our Call Center</a></li>
+        </ul>
+        <p><small>&copy; All rights reserved.</small></p>
+    </footer>
+</body>
+</html>

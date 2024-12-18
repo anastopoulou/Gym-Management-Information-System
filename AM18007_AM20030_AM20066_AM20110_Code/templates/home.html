@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/main.css">
+    <title>Home Page</title>
+    <link rel="icon" type="image/x-icon" href="static/icons8-gym-62.png">
+    <style>
+        .arrowButton { background-color: #FFFFFF; }
+        .arrowImage {
+            width: 100px;
+            height: 60px;
+        }
+        #gymImages {
+            width: 100%;
+            height: auto;
+        }
+        h1 { text-align: center; }
+        section table tr td img { width:100%; }
+        section p { border-style: dotted; }
+    </style>
+    <script>
+        var currentImageIndex = 1;
+        function changeImageForward() {
+            currentImageIndex = currentImageIndex + 1;
+            if (currentImageIndex==9) { currentImageIndex = 1; }
+            changeImage(currentImageIndex)
+        }
+        function changeImageBackwards() {
+            currentImageIndex = currentImageIndex - 1;
+            if (currentImageIndex==0) { currentImageIndex = 8; }
+            changeImage(currentImageIndex)
+        }
+        function changeImage (currentImageIndex) {
+            var imageSrc = "";
+            if (currentImageIndex==1) { imageSrc = "couple-training-together-gym,  Image by senivpetro on Freepik"; } 
+            else if (currentImageIndex==2) { imageSrc = "people-doing-indoor-cycling, Image by Freepik"; } 
+            else if (currentImageIndex==3) { imageSrc = "shaved-head-athletic-male-two-slim-females-doing-squats-with-dumbbells-gym-club,  Image by fxquadro on Freepik"; } 
+            else if (currentImageIndex==4) { imageSrc =  "woman-helping-man-gym,  Image by Freepik"; } 
+            else if (currentImageIndex==5) { imageSrc = "woman-helping-men-gym-front-view, Image by Freepik"; }
+            else if (currentImageIndex==6) { imageSrc = "beautiful-girls-is-engaged-gym, Image by prostooleh on Freepik"; }
+            else if (currentImageIndex==7) { imageSrc = "beautiful-woman-is-engaged-yoga-studio, Image by prostooleh on Freepik"; }
+            else { imageSrc = "five-swimmers-racing-against-each-other-swiming-pool,  Image by drobotdean on Freepik"; }
+            var imageAlt = imageSrc;
+            imageSrc = 'static/' + imageSrc + ".jpg";
+            document.getElementById("gymImages").src = imageSrc;
+            document.getElementById("gymImages").alt = imageAlt;
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div id="headDiv">
+            <div>
+                <div><img src="static/icons8-gym-62.png" alt="gym-icon" width="80"></div>
+                <div id="name"><b>My Gym</b></div>
+            </div>
+            <div>
+                <nav>
+                    <ul>
+                        <li class="bulletList"><a href="{{ url_for('get_home_information_data') }}">Home</a></li>
+                        <li class="bulletList"><a href="{{ url_for('get_services_information') }}">Services</a></li>
+                        <a href="{{url_for('user_login')}}"><button class="bulletButton">Log In</button></a>
+                        <a href="{{url_for('user_register')}}"><button class="bulletButton">Register</button></a>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>       
+    <section style="text-align: center;">
+        <h1>Welcome to our gym!</h1>
+        <h2>Your Ultimate Fitness Destination!</h2> 
+    </section>
+    <section>
+        <table style="width: 100%; text-align: center;">
+            <tr>
+                <td style="background-color: transparent; border: none;">
+                    <button class="arrowButton" onclick="changeImageBackwards()">
+                        <img class="arrowImage" style="transform: rotate(-0.50turn);" src="static/yellow-minimal-arrows,  Image by rawpixel.com on Freepik.jpg" alt="yellow-minimal-arrows, Image by rawpixel.com on Freepik">
+                    </button>
+                </td>
+                <td style="background-color: transparent; border: none;">
+                    <img id="gymImages" src="static/couple-training-together-gym,  Image by senivpetro on Freepik.jpg" alt="couple-training-together-gym, Image by senivpetro on Freepik">
+                </td>
+                <td style="background-color: transparent; border: none;">
+                    <button class="arrowButton" onclick="changeImageForward()">
+                        <img class="arrowImage" src="static/yellow-minimal-arrows,  Image by rawpixel.com on Freepik.jpg" alt="yellow-minimal-arrows, Image by rawpixel.com on Freepik">
+                    </button>
+                </td>
+            </tr>
+        </table> 
+    </section>
+    <section style="text-align: center;">
+        <h1>About us</h1>
+        <table>
+            <tr>
+                <td><img src="static/smiling-portrait-young-fit-woman-touching-digital-tablet-home, Image by Freepik.jpg" alt="smiling-portrait-young-fit-woman-touching-digital-tablet-home, Image by Freepik"></td>
+                <td class="colored"><i>Certified Trainers:</i> Embark on your fitness journey with confidence and guidance from our team of dedicated certified trainers. Whether you're new to exercise or a seasoned athlete, our experts are here to provide personalized support tailored to your goals, ensuring every step of your fitness adventure is met with enthusiasm and encouragement.</td>
+            </tr>
+            <tr>
+                <td class="colored"><i>State-of-the-Art Equipment:</i> Embark on your fitness journey with confidence and guidance from our team of dedicated certified trainers. Whether you're new to exercise or a seasoned athlete, our experts are here to provide personalized support tailored to your goals, ensuring every step of your fitness adventure is met with enthusiasm and encouragement.</td>
+                <td><img src="static/gym-interior-with-equipment, Image by fabrikasimf on Freepik.jpg" alt="gym-interior-with-equipment, Image by fabrikasimf on Freepik"></td>
+            </tr>
+            <tr>
+                <td><img src="static/people-exercising-gym, Image by pikisuperstar on Freepik.jpg" alt="people-exercising-gym, Image by pikisuperstar on Freepik"></td>
+                <td class="colored"><i>Variety of Classes:</i> Dive into a world of diverse fitness experiences with our wide range of classes tailored to suit every passion and proficiency level. Whether you're craving the adrenaline rush of high-intensity cardio workouts or seeking solace in serene yoga sessions, our dynamic lineup of classes offers something for everyone. Join our vibrant community and discover new ways to challenge your body, expand your skills, and ignite your fitness journey.</td>
+            </tr>
+            <tr>
+                <td class="colored"><i>New Year, New You Packages:</i> Toast to a fresh start and embrace the opportunity for transformation with our exclusive New Year membership packages. Designed to kickstart your fitness journey with excitement and savings, our special packages are crafted to empower you to reach new heights of health and vitality. Say cheers to a healthier, happier you as you embark on this exhilarating journey towards personal wellness and fulfillment.</td>
+                <td><img src="static/champagne-glasses-with-bokeh-lights,  Image by Freepik.jpg" alt="champagne-glasses-with-bokeh-lights,  Image by Freepik"></td>
+            </tr>
+        </table>
+    </section>
+    <section>
+        <h1>Hear from some of our customers</h1>
+        <p>I've been a member for over a year, and it has truly changed my life. The trainers are incredibly knowledgeable and supportive, and the variety of classes keeps me motivated to come back every day.<br><b>Sarah L.</b></p>
+        <p>FitLife Gym is more than just a gym – it's a community. The positive energy and camaraderie among members make every workout enjoyable.<br><b>John M.</b></p>
+        <p>Joining this gym has been a game-changer for me. The trainers are fantastic – they push you just enough to reach your goals without pushing you over the edge. The classes are a great mix of challenging and fun, and the energy in the gym is contagious. I've made friends here that I never would've met otherwise, and we motivate each other every day. It's not just a gym; it's a support system that helps me stay committed to my fitness journey.<br><b>David S.</b></p>
+    </section>
+    <h1 style="text-align: center;">Join us today and embark on a journey to transform your body and mind</h1>
+    <footer>
+        <ul>
+            <li><img src="static/Email icon by Icons8.png" alt="Email icon by Icons8" width="40"></li>
+            <li><a href="mailto:mygym@example.com">Write us an email</a></li>
+        </ul>
+        <ul>
+            <li><img src="static/Phone icon by Icons8.png" alt="Phone icon by Icons8" width="40"></li>
+            <li><a href="tel:+21 0414 2000">Give us a call</a></li>
+        </ul>
+        <p><small>&copy; All rights reserved.</small></p>
+    </footer>
+</body>
+</html>

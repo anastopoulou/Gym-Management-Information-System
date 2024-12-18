@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/main.css">
+    <title>User</title>
+    <link rel="icon" type="image/x-icon" href="static/icons8-gym-62.png">
+    <style>
+        h1 {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div id="headDiv">
+            <div>
+                <div><img src="static/icons8-gym-62.png" alt="gym-icon" width="80"></div>
+                <div id="name"><b>My Gym</b></div>
+            </div>
+            <div>
+                <nav>
+                    <ul>
+                        <li class="bulletList"><a href="{{ url_for('get_services_information_by_user') }}">Services</a></li>
+                        <li class="bulletList"><a href="{{ url_for('get_reservations_by_user') }}">Reservations</a></li>
+                        <li class="bulletList"><a href="{{ url_for('make_reservation') }}">Make Reservation</a></li>
+                        <li class="bulletList"><a href="{{ url_for('get_user_information_data') }}">User Panel</a></li>
+                        <li class="bulletList"><a href="{{ url_for('get_home_information_data') }}">Log out</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header> 
+    <h1>Daily Program</h1>
+    {% if daily_plan %}
+        <table>
+            <tr>
+                <th>Time</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Maximum Capacity</th>
+            </tr>
+            {% for program_entry in daily_plan %}
+                <tr>
+                    <td>{{ program_entry['time'] }}</td>
+                    <td>{{ program_entry['name'] }}</td>
+                    <td>{{ program_entry['description'] }}</td>
+                    <td>{{ program_entry['max_capacity'] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No daily program data available.</p>
+    {% endif %}
+    <footer>
+        <ul>
+            <li><img src="static/Email icon by Icons8.png" alt="Email icon by Icons8" width="40"></li>
+            <li><a href="mailto:mygym@example.com">Write us an email</a></li>
+        </ul>
+        <ul>
+            <li><img src="static/Phone icon by Icons8.png" alt="Phone icon by Icons8" width="40"></li>
+            <li><a href="tel:+21 0414 2000">Give us a call</a></li>
+        </ul>
+        <p><small>&copy; All rights reserved.</small></p>
+    </footer>
+</body>
+</html>
